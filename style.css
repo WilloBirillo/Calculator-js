@@ -19,9 +19,12 @@ body {
 button {
   font-size: 2rem;
   text-align: center;
-  border: solid 2px;
+  border: solid 3px;
+  border-radius: 5px;
   width: 25%;
-  padding: 0.5em;
+  padding: 0.5em 0.7em;
+  background-color: rgb(185, 184, 184);
+  font-weight: bold;
 }
 
 .zero {
@@ -31,18 +34,21 @@ button {
 #calculator-display {
   font-size: 3rem;
   display: flex;
-  border: solid 2px;
+  border: solid 3px;
+  border-radius: 5px;
   padding: 0.3em;
-  background-color: white;
+  background-color: rgb(231, 231, 231);
+  font-weight: bold;
 }
 
 #calculator-container {
   display: flex;
   flex-direction: column;
   border: solid 2px;
-  width: 20%;
+  border-radius: 5px;
+  width: 25%;
   flex-wrap: wrap;
-  padding: 4px;
+  padding: 6px;
   background-color: black;
 }
 #calculator-body {
