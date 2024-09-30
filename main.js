@@ -14,30 +14,83 @@ function divideParameters(num1, num2) {
   return num1 / num2;
 }
 
-let firstNumber;
-let secondNumber;
-let operator;
-
 function operate(num1, num2, operator) {
   if (operator === "+") {
-    addParameters(num1, num2);
+    return addParameters(num1, num2);
   } else if (operator === "-") {
-    subParameters(num1, num2);
+    return subParameters(num1, num2);
   } else if (operator === "*") {
-    multiplyParameters(num1, num2);
+    return multiplyParameters(num1, num2);
   } else if (operator === "/") {
-    divideParameters(num1, num2);
+    return divideParameters(num1, num2);
   }
+  return undefined;
 }
 
-const number_buttons = document.querySelectorAll(".number");
+const number_button = document.querySelectorAll(".number");
 const display = document.querySelector("#calculator-display");
+const operator_button = document.querySelectorAll(".operator");
+const equals = document.querySelector(".equals");
+const clear = document.querySelector(".clear");
+display.value = "";
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
+let currentInput = "firstNumber";
 
-for (let i = 0; i < number_buttons.length; i++){
-    number_buttons[i].addEventListener("click", displayNumbersDisplay);
+equals.addEventListener("click", selectNumbers);
+clear.addEventListener("click", selectNumbers);
+
+for (let i = 0; i < operator_button.length; i++) {
+  operator_button[i].addEventListener("click", selectNumbers);
 }
-function displayNumbersDisplay(event) {
+for (let i = 0; i < number_button.length; i++) {
+  number_button[i].addEventListener("click", selectNumbers);
+}
+
+function displayNumbers(event) {
   const numberSelected = event.target.value;
   display.textContent += numberSelected;
-  console.log(display);
+  return numberSelected;
+}
+
+function displayOperator(event) {
+  const operatorSelected = event.target.value;
+  display.textContent = operatorSelected;
+  return operatorSelected;
+}
+
+function selectNumbers(event) {
+  if (event.target.classList.contains("number")) {
+    if (currentInput === "firstNumber") {
+      firstNumber += displayNumbers(event);
+      console.log(firstNumber);
+    } else if (currentInput === "secondNumber") {
+      secondNumber += displayNumbers(event);
+    }
+  } else if (
+    event.target.classList.contains("operator") &&
+    currentInput === "firstNumber"
+  ) {
+    operator = displayOperator(event);
+    currentInput = "secondNumber";
+  } else if (event.target.classList.contains("equals")) {
+    const num1 = +firstNumber;
+    const num2 = +secondNumber;
+    let result = operate(num1, num2, operator);
+    console.log(result);
+
+    display.textContent = result;
+    firstNumber = result;
+    secondNumber ="";
+    operator ="";
+    currentInput = "firstNumber";
+    console.log(firstNumber);
+  } else if (event.target.classList.contains("clear")) {
+    currentInput = "firstNumber";
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+    display.textContent = "";
+  }
 }
