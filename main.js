@@ -4,12 +4,16 @@ const operator_button = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
 const clear = document.querySelector(".clear");
 const decimal = document.querySelector(".decimal");
+const backspace = document.querySelector(".backspace");
+
+//* Base values
 display.value = "";
 let firstNumber = "";
 let secondNumber = "";
 let operator = "";
 let currentInput = "firstNumber";
 
+backspace.addEventListener("click", selectNumbers);
 decimal.addEventListener("click", selectNumbers);
 equals.addEventListener("click", selectNumbers);
 clear.addEventListener("click", selectNumbers);
@@ -19,17 +23,6 @@ for (let i = 0; i < operator_button.length; i++) {
 }
 for (let i = 0; i < number_button.length; i++) {
   number_button[i].addEventListener("click", selectNumbers);
-}
-
-function displayNumbers(event) {
-  const numberSelected = event.target.value;
-  display.textContent += numberSelected;
-  return numberSelected;
-}
-
-function displayOperator(event) {
-  const operatorSelected = event.target.value;
-  return operatorSelected;
 }
 
 function selectNumbers(event) {
@@ -54,6 +47,14 @@ function selectNumbers(event) {
       secondNumber += ".";
       display.textContent = secondNumber;
     }
+  } else if (event.target.classList.contains("backspace")) {
+    if (currentInput === "firstNumber"){
+        firstNumber = firstNumber.slice(0, -1);
+        display.textContent = firstNumber;
+    } else if (currentInput === "secondNumber"){
+        secondNumber = secondNumber.slice(0, -1);
+        display.textContent = secondNumber;
+    }
   } else if (event.target.classList.contains("equals")) {
     let num1 = +firstNumber;
     let num2 = +secondNumber;
@@ -72,6 +73,7 @@ function selectNumbers(event) {
       let result = operate(num1, num2, operator);
       display.textContent = result;
       firstNumber = result;
+      firstNumber = firstNumber.toString();
       secondNumber = "";
       operator = "";
       currentInput = "firstNumber";
@@ -86,18 +88,29 @@ function selectNumbers(event) {
   }
 }
 
+function displayNumbers(event) {
+  const numberSelected = event.target.value;
+  display.textContent += numberSelected;
+  return numberSelected;
+}
+
+function displayOperator(event) {
+  const operatorSelected = event.target.value;
+  return operatorSelected;
+}
+
 function operate(num1, num2, operator) {
-    if (operator === "+") {
-      return num1 + num2;
-    } else if (operator === "-") {
-      return num1 - num2;
-    } else if (operator === "*") {
-      return num1 * num2;
-    } else if (operator === "/") {
-      return num1 / num2;
-    }
-    return undefined;
+  if (operator === "+") {
+    return num1 + num2;
+  } else if (operator === "-") {
+    return num1 - num2;
+  } else if (operator === "*") {
+    return num1 * num2;
+  } else if (operator === "/") {
+    return num1 / num2;
   }
+  return undefined;
+}
 
 function disableButtons() {
   number_button.disabled = true;
