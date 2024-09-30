@@ -78,7 +78,7 @@ function selectNumbers(event) {
   } else if (event.target.classList.contains("equals")) {
     let num1 = +firstNumber;
     let num2 = +secondNumber;
-    //* Calculate the operation with the same number
+    //* Calculate the operation with the same number if the second number is not given
     if (secondNumber === ""){
         num2 = +firstNumber;
     }
