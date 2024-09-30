@@ -67,6 +67,7 @@ function selectNumbers(event) {
       console.log(firstNumber);
     } else if (currentInput === "secondNumber") {
       secondNumber += displayNumbers(event);
+      display.textContent = secondNumber;
     }
   } else if (
     event.target.classList.contains("operator") &&
@@ -75,17 +76,18 @@ function selectNumbers(event) {
     operator = displayOperator(event);
     currentInput = "secondNumber";
   } else if (event.target.classList.contains("equals")) {
-    const num1 = +firstNumber;
-    const num2 = +secondNumber;
+    let num1 = +firstNumber;
+    let num2 = +secondNumber;
+    //* Calculate the operation with the same number
+    if (secondNumber === ""){
+        num2 = +firstNumber;
+    }
     let result = operate(num1, num2, operator);
-    console.log(result);
-
     display.textContent = result;
     firstNumber = result;
     secondNumber ="";
     operator ="";
     currentInput = "firstNumber";
-    console.log(firstNumber);
   } else if (event.target.classList.contains("clear")) {
     currentInput = "firstNumber";
     firstNumber = "";
