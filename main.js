@@ -79,20 +79,42 @@ function selectNumbers(event) {
     let num1 = +firstNumber;
     let num2 = +secondNumber;
     //* Calculate the operation with the same number if the second number is not given
-    if (secondNumber === ""){
-        num2 = +firstNumber;
+    if (secondNumber === "") {
+      num2 = +firstNumber;
     }
-    let result = operate(num1, num2, operator);
-    display.textContent = result;
-    firstNumber = result;
-    secondNumber ="";
-    operator ="";
-    currentInput = "firstNumber";
+    if (operator === "") {
+      currentInput = "firstNumber";
+      secondNumber = "";
+      operator = "";
+    } else if (num2 === 0 && operator === "/") {
+      display.textContent = "ERROR";
+      disableButtons();
+    } else {
+      let result = operate(num1, num2, operator);
+      display.textContent = result;
+      firstNumber = result;
+      secondNumber = "";
+      operator = "";
+      currentInput = "firstNumber";
+    }
   } else if (event.target.classList.contains("clear")) {
+    enableButtons();
     currentInput = "firstNumber";
     firstNumber = "";
     secondNumber = "";
     operator = "";
     display.textContent = "";
   }
+}
+
+function disableButtons() {
+  number_button.disabled = true;
+  operator_button.disabled = true;
+  equals.disabled = true;
+}
+
+function enableButtons() {
+  number_button.disabled = false;
+  operator_button.disabled = false;
+  equals.disabled = false;
 }
