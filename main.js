@@ -12,6 +12,8 @@ let firstNumber = "";
 let secondNumber = "";
 let operator = "";
 let currentInput = "firstNumber";
+firstNumber = firstNumber.substring(0, 10);
+secondNumber = secondNumber.substring(0, 10);
 
 backspace.addEventListener("click", selectNumbers);
 decimal.addEventListener("click", selectNumbers);
@@ -29,8 +31,11 @@ function selectNumbers(event) {
   if (event.target.classList.contains("number")) {
     if (currentInput === "firstNumber") {
       firstNumber += displayNumbers(event);
+      firstNumber = firstNumber.substring(0, 10);
+      display.textContent = firstNumber;
     } else if (currentInput === "secondNumber") {
       secondNumber += displayNumbers(event);
+      secondNumber = secondNumber.substring(0, 10);
       display.textContent = secondNumber;
     }
   } else if (
@@ -48,12 +53,12 @@ function selectNumbers(event) {
       display.textContent = secondNumber;
     }
   } else if (event.target.classList.contains("backspace")) {
-    if (currentInput === "firstNumber"){
-        firstNumber = firstNumber.slice(0, -1);
-        display.textContent = firstNumber;
-    } else if (currentInput === "secondNumber"){
-        secondNumber = secondNumber.slice(0, -1);
-        display.textContent = secondNumber;
+    if (currentInput === "firstNumber") {
+      firstNumber = firstNumber.slice(0, -1);
+      display.textContent = firstNumber;
+    } else if (currentInput === "secondNumber") {
+      secondNumber = secondNumber.slice(0, -1);
+      display.textContent = secondNumber;
     }
   } else if (event.target.classList.contains("equals")) {
     let num1 = +firstNumber;
@@ -62,6 +67,7 @@ function selectNumbers(event) {
     if (secondNumber === "") {
       num2 = +firstNumber;
     }
+    //* Equal button doesn't brake the program
     if (operator === "") {
       currentInput = "firstNumber";
       secondNumber = "";
@@ -71,6 +77,7 @@ function selectNumbers(event) {
       disableButtons();
     } else {
       let result = operate(num1, num2, operator);
+      result = Math.round(result * 100) / 100;
       display.textContent = result;
       firstNumber = result;
       firstNumber = firstNumber.toString();
@@ -90,7 +97,6 @@ function selectNumbers(event) {
 
 function displayNumbers(event) {
   const numberSelected = event.target.value;
-  display.textContent += numberSelected;
   return numberSelected;
 }
 
