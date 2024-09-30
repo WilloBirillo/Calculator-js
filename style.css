@@ -33,6 +33,7 @@ button {
 
 #calculator-display {
   font-size: 3rem;
+  min-height: 1.2em;
   display: flex;
   border: solid 3px;
   border-radius: 5px;
