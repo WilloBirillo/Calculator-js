@@ -19,13 +19,8 @@ backspace.addEventListener("click", selectNumbers);
 decimal.addEventListener("click", selectNumbers);
 equals.addEventListener("click", selectNumbers);
 clear.addEventListener("click", selectNumbers);
-
-for (let i = 0; i < operator_button.length; i++) {
-  operator_button[i].addEventListener("click", selectNumbers);
-}
-for (let i = 0; i < number_button.length; i++) {
-  number_button[i].addEventListener("click", selectNumbers);
-}
+operator_button.forEach((button) => button.addEventListener("click", selectNumbers));
+number_button.forEach((button) => button.addEventListener("click", selectNumbers));
 
 function selectNumbers(event) {
   if (event.target.classList.contains("number")) {
@@ -115,7 +110,6 @@ function operate(num1, num2, operator) {
   } else if (operator === "/") {
     return num1 / num2;
   }
-  return undefined;
 }
 
 function disableButtons() {
